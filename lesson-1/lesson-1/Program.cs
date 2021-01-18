@@ -15,20 +15,21 @@ namespace lesson_1
             string num = Console.ReadLine();
             int d = 0, i = 2;
 
-            if (i < (int.Parse(num)))
+            while (i < (int.Parse(num)))
             {
 
                 if ((int.Parse(num) % i == 0))
                     d++;
-                else
-                    i++;
+               
+                i++;
             }
 
+            
             if (d == 0)
                 Console.WriteLine("Число простое");
             else
                 Console.WriteLine("Число не простое");
-
+            
             Console.ReadLine();
 
         }
