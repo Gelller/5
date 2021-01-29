@@ -4,22 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace lesson_4_2
 {
     class Tree
     {
-        public class Node
-        {
-            public int Data { get; set; }
-            public Node Left { get; set; }
-            public Node Right { get; set; }
-            public Node Parent { get; set; }
-        }
+        public Node StartNode=null;
+
         //удаление выбраного элемента
-        public static void delete(Node start, int num)
+        public void Delete(int num)
         {
 
-            var delete = seach(start, num);
+            var delete = seach(num);
             if (delete != null)
             {
                 var node = delete.Parent;
@@ -30,19 +26,19 @@ namespace lesson_4_2
                     node.Right = null;
 
                 //для добавления элементов на которые указывал удаляемый
-                ReturnBack(start, delete, num);
+                ReturnBack(StartNode, delete, num);
             }
 
         }
 
 
-        public static void ReturnBack(Node start,Node root,int num)
+        public void ReturnBack(Node start,Node root,int num)
         {
 
             if (root != null)
             {
                 if(root.Data!=num)
-                    Insert(start, root.Data);
+                    Insert(root.Data);
               
 
                 if (root.Left != null || root.Right != null)
@@ -59,9 +55,10 @@ namespace lesson_4_2
 
 
 
-        public static Node seach (Node start, int num)
-            {
-          
+        public Node seach (int num)
+        {
+
+            Node start = StartNode;
 
             while (start.Data != num)
             {
@@ -111,8 +108,9 @@ namespace lesson_4_2
         }
 
         //для вывода в консоль дерева
-        public static void PreOrderTravers(Node root,int x,int y)
+        public void PreOrderTravers(Node root,int x,int y)
         {
+            
             
             if (root != null)
             {
@@ -165,7 +163,7 @@ namespace lesson_4_2
 
         }
 
-        public static Node GetFreeNode(int value, Node parent)
+        public Node GetFreeNode(int value, Node parent)
         {
             var newNode = new Node
             {
@@ -177,12 +175,15 @@ namespace lesson_4_2
 
 
 
-        public static Node Insert(Node head, int value)
+        public Node Insert(int value)
         {
             Node tmp = null;
+            Node head = StartNode;
             if (head == null)
             {
+                
                 head = GetFreeNode(value, null);
+                StartNode = head;
                 return head;
             }
 
